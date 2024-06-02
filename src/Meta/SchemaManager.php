@@ -14,9 +14,11 @@ use Illuminate\Database\MySqlConnection;
 use Illuminate\Database\SQLiteConnection;
 use Illuminate\Database\PostgresConnection;
 use Illuminate\Database\ConnectionInterface;
+use Illuminate\Database\SqlServerConnection;
 use Reliese\Meta\MySql\Schema as MySqlSchema;
 use Reliese\Meta\Sqlite\Schema as SqliteSchema;
 use Reliese\Meta\Postgres\Schema as PostgresSchema;
+use Reliese\Meta\SqlServer\Schema as SqlServerSchema;
 
 class SchemaManager implements IteratorAggregate
 {
@@ -27,6 +29,7 @@ class SchemaManager implements IteratorAggregate
         MySqlConnection::class => MySqlSchema::class,
         SQLiteConnection::class => SqliteSchema::class,
         PostgresConnection::class => PostgresSchema::class,
+        SqlServerConnection::class => SqlServerSchema::class,
         \Larapack\DoctrineSupport\Connections\MySqlConnection::class => MySqlSchema::class,
     ];
 
@@ -57,7 +60,7 @@ class SchemaManager implements IteratorAggregate
      */
     public function boot()
     {
-        if (! $this->hasMapping()) {
+        if (!$this->hasMapping()) {
             throw new RuntimeException("There is no Schema Mapper registered for [{$this->type()}] connection.");
         }
 
