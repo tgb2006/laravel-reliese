@@ -270,14 +270,7 @@ class Schema implements \Reliese\Meta\Schema
      */
     public static function schemas(Connection $connection)
     {
-        $schemas = $connection->getDoctrineSchemaManager()->listDatabases();
-
-        return array_diff($schemas, [
-            'information_schema',
-            'sys',
-            'sqlsrv',
-            'performance_schema',
-        ]);
+        return ['database'];
     }
 
     /**
